@@ -13,7 +13,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 model = models.resnet18()
 model.fc = torch.nn.Linear(model.fc.in_features, 7) 
-model.load_state_dict(torch.load("models/resnet18_best.pth", weights_only=True))  
+model.load_state_dict(torch.load("models/resnet18_best.pth"))  
 model.eval()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
@@ -22,6 +22,7 @@ class_names = ["angry", "disgust", "fear", "happy", "neutral", "sad", "surprise"
 
 transform = transforms.Compose([
     transforms.Resize((64, 64)),
+    transforms.CenterCrop(64),  
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
