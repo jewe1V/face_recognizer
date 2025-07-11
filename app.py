@@ -13,7 +13,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 model = models.resnet18()
 model.fc = torch.nn.Linear(model.fc.in_features, 7) 
-model.load_state_dict(torch.load("resnet18_best.pth"))  
+model.load_state_dict(torch.load("models/resnet18_best.pth"))  
 model.eval()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
